@@ -15,5 +15,5 @@ class FindMyPyJsonException(FindMyPyException):
 class FindMyPyNoDevicesException(FindMyPyException):
     pass
 
-class FindMyPyLoginExcepetion(FindMyPyException):
+class FindMyPyLoginException(FindMyPyException):
     pass

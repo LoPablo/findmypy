@@ -1,1 +1,7 @@
 /.DS_Store
+dist/findmypy-0.1.2-py3-none-any.whl
+findmypy.egg-info/dependency_links.txt
+findmypy.egg-info/SOURCES.txt
+findmypy.egg-info/PKG-INFO
+findmypy.egg-info/top_level.txt
+dist/findmypy-0.1.2.tar.gz

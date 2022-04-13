@@ -5,7 +5,7 @@ import base64
 import json
 import requests
 
-from findmypy.exceptions import FindMyPyApiException, FindMyPyJsonException, FindMyPyLoginExcepetion, FindMyPyNoDevicesException
+from findmypy.exceptions import FindMyPyApiException, FindMyPyJsonException, FindMyPyLoginException, FindMyPyNoDevicesException
 
 LOGGER = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ class FindMyPyConnection:
         if response.ok:
             return response.text
         elif response.status_code == 401:
-            raise FindMyPyLoginExcepetion()
+            raise FindMyPyLoginException()
         else:
             raise FindMyPyApiException(response.status_code)
 
