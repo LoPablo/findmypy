@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 REPO_URL = "https://github.com/picklepete/pyicloud"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 setup(
     name="findmypy",
@@ -14,7 +14,7 @@ setup(
     python_requires=">=3.7",
     license="MIT",
     classifiers=[
-        "Development Status :: 1",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",

@@ -50,7 +50,6 @@ class FindMyPyManager:
         self.connection = connection
         self.devices = {}
         self.with_family = with_family
-        self.last_response = {}
 
     def refresh_all_device(self):
         data = json.dumps(
@@ -69,7 +68,6 @@ class FindMyPyManager:
         json_dict={}
         try:
             json_dict = json.loads(response)
-            self.last_response = json_dict
         except :
             raise FindMyPyJsonException("Could not load Dict from Json-Api Response")
         if "content" in json_dict:
@@ -99,9 +97,9 @@ class FindMyPyManager:
         json_dict={}
         try:
             json_dict = json.loads(response)
-            self.last_response = json_dict
         except (json.JSONDecodeError):
-            raise FindMyPyJsonException("Could not load Dict from Json-Api Response")
+            raise findMyPyJsonException("Could not load Dict from Json-Api Response")
+            pass
         if "content" in json_dict:
             for device in json_dict["content"]:
                 if "id" in device:
@@ -110,7 +108,7 @@ class FindMyPyManager:
                     else:
                         self.devices[device["id"]] = FindMyPyDevice(self,device)
         else:
-            raise FindMyPyNoDevicesException()
+            raise findMyPyNoDevicesException()
 
     def play_sound_on_device(self, id, subject = "FindPy iPhone Alert"):
         data = json.dumps(
@@ -166,15 +164,15 @@ class FindMyPyManager:
 
         try:
             json_dict = json.loads(response)
-            self.last_response = json_dict
         except (json.JSONDecodeError):
-            raise FindMyPyJsonException("Could not load Dict from Json-Api Response")
+            raise findMyPyJsonException("Could not load Dict from Json-Api Response")
+            pass
         if "content" in json_dict:
             for device in json_dict["content"]:
                 if "id" in device:
                     self.devices[device["id"]] = FindMyPyDevice(self,device)
         else:
-            raise FindMyPyNoDevicesException
+            raise findMyPyNoDevicesException
 
 
 class FindMyPyDevice:
