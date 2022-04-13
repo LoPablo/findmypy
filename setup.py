@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 REPO_URL = "https://github.com/picklepete/pyicloud"
-VERSION = "0.1.6"
+VERSION = "0.1.7"
 
 setup(
     name="findmypy",
@@ -11,7 +11,10 @@ setup(
     version=VERSION,
     url=REPO_URL,
     packages=find_packages(include=["findmypy"]),
-    include_package_data=True,
+    package_data={
+    # If any package contains *.txt or *.rst files, include them:
+        "": ["AppleCA.pem"],
+    },
     python_requires=">=3.7",
     license="MIT",
     classifiers=[
