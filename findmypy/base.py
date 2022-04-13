@@ -207,7 +207,6 @@ class FindMyPyDevice:
         """Returns status information for device.
         This returns only a subset of possible properties.
         """
-        self.manager.refresh_all_device()
         fields = ["batteryLevel", "deviceDisplayName", "deviceStatus", "name"]
         fields += additional
         properties = {}
