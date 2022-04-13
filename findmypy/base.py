@@ -5,6 +5,8 @@ import base64
 import json
 import requests
 
+from findmypy.exceptions import FindMyPyApiException, FindMyPyJsonException, FindMyPyLoginExcepetion, FindMyPyNoDevicesException
+
 LOGGER = logging.getLogger(__name__)
 
 ICLOUD_API_BASE_URL = "https://fmipmobile.icloud.com";
@@ -24,7 +26,7 @@ REQUEST_HEADERS = {
     "Content-Type" : "application/json"
 }
 
-class findmypy_connection:
+class FindMyPyConnection:
 
     def __init__(self, apple_id, password) -> None:
         self.authorization = base64.b64encode((apple_id+":"+password).encode("utf-8")).decode("utf-8")
@@ -37,10 +39,14 @@ class findmypy_connection:
         response = requests.post(url, data = payload, headers= headers, verify=False)
         if response.ok:
             return response.text
+        elif response.status_code == 401:
+            raise FindMyPyLoginExcepetion()
+        else:
+            raise FindMyPyApiException(response.status_code)
 
-class findpy_manager:
+class FindMyPyManager:
 
-    def __init__(self, connection : findpy_connection, with_family : bool) -> None:
+    def __init__(self, connection : FindMyPyConnection, with_family : bool) -> None:
         self.connection = connection
         self.devices = {}
         self.with_family = with_family
@@ -62,18 +68,17 @@ class findpy_manager:
         json_dict={}
         try:
             json_dict = json.loads(response)
-        except (json.JSONDecodeError):
-            print('Error')
-            pass
+        except :
+            raise FindMyPyJsonException("Could not load Dict from Json-Api Response")
         if "content" in json_dict:
             for device in json_dict["content"]:
                 if "id" in device:
                     if device["id"] in self.devices:
                         self.devices[device["id"]].update(device)
                     else:
-                        self.devices[device["id"]] = findpy_device(self,device)
+                        self.devices[device["id"]] = FindMyPyDevice(self,device)
         else:
-            pass
+            raise FindMyPyNoDevicesException()
 
     def refresh_device(self, id):
         data = json.dumps(
@@ -93,7 +98,7 @@ class findpy_manager:
         try:
             json_dict = json.loads(response)
         except (json.JSONDecodeError):
-            print('Error')
+            raise findMyPyJsonException("Could not load Dict from Json-Api Response")
             pass
         if "content" in json_dict:
             for device in json_dict["content"]:
@@ -101,9 +106,9 @@ class findpy_manager:
                     if device["id"] in self.devices:
                         self.devices[device["id"]].update(device)
                     else:
-                        self.devices[device["id"]] = findpy_device(self,device)
+                        self.devices[device["id"]] = FindMyPyDevice(self,device)
         else:
-            pass
+            raise findMyPyNoDevicesException()
 
     def play_sound_on_device(self, id, subject = "FindPy iPhone Alert"):
         data = json.dumps(
@@ -160,18 +165,19 @@ class findpy_manager:
         try:
             json_dict = json.loads(response)
         except (json.JSONDecodeError):
-            print('Error')
+            raise findMyPyJsonException("Could not load Dict from Json-Api Response")
             pass
         if "content" in json_dict:
             for device in json_dict["content"]:
                 if "id" in device:
-                    self.devices[device["id"]] = findmypy_device(self,device)
+                    self.devices[device["id"]] = FindMyPyDevice(self,device)
         else:
-            pass
+            raise findMyPyNoDevicesException
 
-class findmypy_device:
 
-    def __init__(self, manager : findpy_manager, content) -> None:
+class FindMyPyDevice:
+
+    def __init__(self, manager : FindMyPyManager, content) -> None:
         self.manager = manager
         self.content = content
         pass
