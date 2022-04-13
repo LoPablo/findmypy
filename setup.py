@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 REPO_URL = "https://github.com/picklepete/pyicloud"
-VERSION = "0.1.5"
+VERSION = "0.1.6"
 
 setup(
     name="findmypy",
@@ -11,6 +11,7 @@ setup(
     version=VERSION,
     url=REPO_URL,
     packages=find_packages(include=["findmypy"]),
+    include_package_data=True,
     python_requires=">=3.7",
     license="MIT",
     classifiers=[
