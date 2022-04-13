@@ -4,6 +4,7 @@ import logging
 import base64
 import json
 import requests
+import os
 
 from findmypy.exceptions import FindMyPyApiException, FindMyPyJsonException, FindMyPyLoginException, FindMyPyNoDevicesException
 
@@ -31,12 +32,13 @@ class FindMyPyConnection:
     def __init__(self, apple_id, password) -> None:
         self.authorization = base64.b64encode((apple_id+":"+password).encode("utf-8")).decode("utf-8")
         self.icloud_url_api = ICLOUD_API_URL + apple_id 
+        self.ca_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "AppleCA.pem")
 
 
     def callAPI(self, url, payload) -> str:
         headers = REQUEST_HEADERS.copy()
         headers["authorization"] = "Basic " + self.authorization
-        response = requests.post(url, data = payload, headers= headers, verify=False)
+        response = requests.post(url, data = payload, headers= headers, verify=self.ca_path)
         if response.ok:
             return response.text
         elif response.status_code == 401:
