@@ -1,12 +1,12 @@
-from findmypy.base import findpy_manager
-from findmypy.base import findpy_connection
+from findmypy.base import findMyPyManager
+from findmypy.base import findMyPyConnection
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-test_connection = findpy_connection(os.getenv('APPLEID'),os.getenv('PASSWORD'))
-test = findpy_manager(test_connection, True)
+test_connection = findMyPyConnection("steeve.cook@apple.com","super_secure_apple_password")
+test = findMyPyManager(test_connection, True)
 test.init_devices_list()
 print(test.devices)
 

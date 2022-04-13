@@ -11,7 +11,6 @@ setup(
     version=VERSION,
     url=REPO_URL,
     packages=find_packages(include=["findmypy"]),
-    install_requires=required,
     python_requires=">=3.7",
     license="MIT",
     classifiers=[
