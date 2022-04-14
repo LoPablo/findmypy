@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from pathlib import Path
 
 REPO_URL = "https://github.com/LoPablo/findmypy"
-VERSION = "0.1.8"
+VERSION = "0.1.9"
 
 
 this_directory = Path(__file__).parent
