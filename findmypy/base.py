@@ -191,7 +191,7 @@ class FindMyPyDevice:
         pass
 
     def play_sound(self, subject = "FindPy iPhone Alert"):
-        self.manager.play_sound_on_device()
+        self.manager.play_sound_on_device(self.content["id"])
         
 
     def display_message(self, subject = "FindPy iPhone Altert", text = "This is a note", sounds=False):
