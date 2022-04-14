@@ -4,5 +4,6 @@ findmypy.egg-info/dependency_links.txt
 findmypy.egg-info/SOURCES.txt
 findmypy.egg-info/PKG-INFO
 findmypy.egg-info/top_level.txt
-dist/*
-build/*
+dist/
+build/
+
