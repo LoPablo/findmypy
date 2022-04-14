@@ -119,7 +119,12 @@ class FindMyPyManager:
             {
                 "device": id,
                 "subject": subject,
-                "clientContext": {"fmly": True},
+                "clientContext": {
+                    "fmly": self.with_family,
+                    "appName" : "FindMyiPhone",
+                    "appVersion" : "5.0",
+                    "deviceListVersion" : 1
+                }
             }
         )
         self.connection.callAPI(self.connection.icloud_url_api + ICLOUD_API_COMMAND_PLAY_SOUND,data)     
@@ -132,6 +137,12 @@ class FindMyPyManager:
                 "sound": sounds,
                 "userText": True,
                 "text": message,
+                "clientContext": {
+                    "fmly": self.with_family,
+                    "appName" : "FindMyiPhone",
+                    "appVersion" : "5.0",
+                    "deviceListVersion" : 1
+                }
             }
         )
         self.connection.callAPI(self.connection.icloud_url_api + ICLOUD_API_COMMAND_PLAY_SOUND,data)  
@@ -145,7 +156,13 @@ class FindMyPyManager:
                 "lostModeEnabled": True,
                 "trackingEnabled": True,
                 "device": id,
-                "passcode": newpasscode
+                "passcode": newpasscode,
+                "clientContext": {
+                    "fmly": self.with_family,
+                    "appName" : "FindMyiPhone",
+                    "appVersion" : "5.0",
+                    "deviceListVersion" : 1
+                }
             }
         )
         self.connection.callAPI(self.connection.icloud_url_api + ICLOUD_API_COMMAND_LOST_MODE,data)
