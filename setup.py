@@ -1,18 +1,24 @@
 from setuptools import setup, find_packages
+from pathlib import Path
 
-REPO_URL = "https://github.com/picklepete/pyicloud"
-VERSION = "0.1.7"
+REPO_URL = "https://github.com/LoPablo/findmypy"
+VERSION = "0.1.8"
+
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="findmypy",
     author="LoPablo",
     author_email="lopablo@protonmail.com",
     description="Library to use Apple's FindMy Api.",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     version=VERSION,
     url=REPO_URL,
     packages=find_packages(include=["findmypy"]),
     package_data={
-    # If any package contains *.txt or *.rst files, include them:
         "": ["AppleCA.pem"],
     },
     python_requires=">=3.7",
